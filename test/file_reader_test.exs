@@ -1,16 +1,25 @@
 defmodule FileReaderTest do
   use ExUnit.Case
   doctest FileReader
-  test "lines_lengths!" do
-    assert FileReader.lines_lengths!("arquivo.txt") == [2, 5, 5]
+
+  setup do
+    %{path: "test/fixtures/file_reader.txt"}
   end
-  test "longest_line_length!" do
-    assert FileReader.longest_line_length!("arquivo.txt") == 5
+
+  test "lines_lengths!", %{path: path} do
+    assert FileReader.lines_lengths!(path) == [136, 136, 130, 136, 136, 135, 27]
   end
-  test "longest_line!" do
-    assert FileReader.longest_line!("arquivo.txt") == "OIIII"
+
+  test "longest_line_length!", %{path: path} do
+    assert FileReader.longest_line_length!(path) == 136
   end
-  test "words_per_line!" do
-    assert FileReader.words_per_line!("arquivo.txt") == [1,1,1]
+
+  test "longest_line!", %{path: path} do
+    assert FileReader.longest_line!(path) ==
+             "Lorem ipsum dolor sit amet, consectetur adipiscing elit. In interdum vestibulum laoreet. Nunc et neque nec ante euismod vulputate in sit"
+  end
+
+  test "words_per_line!", %{path: path} do
+    assert FileReader.words_per_line!(path) == [21, 22, 18, 19, 22, 20, 4]
   end
 end

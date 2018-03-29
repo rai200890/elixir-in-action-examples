@@ -4,5 +4,8 @@ compile:
 shell:
 	docker-compose run --rm web iex -S mix
 
-test:
+format:
+	docker-compose run --rm web mix format
+
+test: format
 	docker-compose run --rm web mix test
